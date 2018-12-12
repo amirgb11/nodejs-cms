@@ -15,11 +15,12 @@ const passport = require('passport');
 
 
 
-module.exports = class Application {
+class Application {
     constructor(){
         this.setupExpress();
         this.setMongoConnection();
         this.setConfig();
+        this.setRouters();
 
     }
 
@@ -35,8 +36,8 @@ module.exports = class Application {
     }
 
 
-    setConfig() {
-        app.use(express.static('public'));
+    setConfig() { 
+        app.use(express.static('public')); // 1. set public path 
         app.set('view engin' , 'ejs'); // 2. set template engine  
         app.set('view' , path.resolve('/resource/views')); // 3. set views directories
         app.use(bodyParser.json()); // 4. config middleware of body-parser 
@@ -53,9 +54,13 @@ module.exports = class Application {
         app.use(cookieParser('mysecretkey'));
         app.use(flash()); // messages for example req.flash();
 
-        app.get('/' , (req , res) => {
-            res.json('app is running');
-        })
+    } // end of setConfig
+
+    setRouters(){
+        app.use(require('app/routes/api'));  
+        app.use(require('app/routes/web')); // chon dar index.js router/web be soorat router export kardim . 
     }
 
 } // export class for require in server.js
+
+module.exports = Application;
