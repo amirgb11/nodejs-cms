@@ -38,8 +38,8 @@ class Application {
 
     setConfig() { 
         app.use(express.static('public')); // 1. set public path 
-        app.set('view engin' , 'ejs'); // 2. set template engine  
-        app.set('view' , path.resolve('/resource/views')); // 3. set views directories
+        app.set('view engine' , 'ejs'); // 2. set template engine  
+        app.set('views' , path.resolve('./resource/views')); // 3. set views directories
         app.use(bodyParser.json()); // 4. config middleware of body-parser 
         app.use(bodyParser.urlencoded({ extended : true})); // 4. config middleware of body-parsers
 

@@ -7,6 +7,6 @@ router.use('/admin' , adminRouter);
 
 // Home Router 
 const homeRouter = require('app/routes/web/home');
-router.use('/home' , homeRouter);
+router.use('/' , homeRouter);
 
 module.exports = router ; 
