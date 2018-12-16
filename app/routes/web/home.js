@@ -5,8 +5,12 @@ const router = express.Router();
 //     res.json('Home Router')
 // } )
 const homeController = require('app/http/controllers/homeController');
+const registerController = require('app/http/controllers/auth/registerController');
+const loginController = require('app/http/controllers/auth/loginController');
 
 router.get('/' , homeController.index );
+router.get('/register' , registerController.showRegistrationForm);
+router.get('/login' , loginController.showLoginForm);
 
 
 module.exports = router ; 
