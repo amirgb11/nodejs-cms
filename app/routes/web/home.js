@@ -11,6 +11,7 @@ const loginController = require('app/http/controllers/auth/loginController');
 router.get('/' , homeController.index );
 router.get('/register' , registerController.showRegistrationForm);
 router.get('/login' , loginController.showLoginForm);
+router.post('/register' , registerController.registerProccess);
 
 
 module.exports = router ; 
