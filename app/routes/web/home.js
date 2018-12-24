@@ -9,7 +9,7 @@ const registerController = require('app/http/controllers/auth/registerController
 const loginController = require('app/http/controllers/auth/loginController');
 
 router.get('/' , homeController.index );
-router.get('/register' , registerController.showRegistrationForm);
+router.get('/register' , registerController.showRegisterationForm);
 router.get('/login' , loginController.showLoginForm);
 router.post('/register' , registerController.registerProccess);
 

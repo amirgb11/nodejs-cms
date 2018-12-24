@@ -1,45 +1,42 @@
 const controller = require('app/http/controllers/controller');
 
+
 class registerController extends controller {
-    showRegistrationForm(req , res){
-
-        res.render('auth/register');
+    
+    showRegisterationForm(req , res) {
+        res.render('auth/register' , { messages : req.flash('errors') });
     }
 
-    registerProccess(req , res , next){
-        //console.log(req.body);
-       this.validationData(req , res , next )
+    registerProccess(req ,res , next) {
+        this.validationData(req)
             .then(result => {
-                 res.json(result);
-            })        
+                if(result) res.json('register proccess')
+                else res.redirect('/register');
+            });
     }
 
-    validationData(req ,res ,next){
-        
-                // validation with express validator methods like : notEmpty , isLenght , ... 
 
-        req.checkBody('name' , ' پر کردن فیلد نام ضروری است ').notEmpty()
-        req.checkBody('name' , ' فیلد نام نمی تواند کمتر از 5 باشد ').isLength({ min : 5})
-        req.checkBody('email' , ' پر کردن فیلد ایمیل ضروری است  ').notEmpty()
-        req.checkBody('email' , ' فیلد ایمیل معتبر نیست ').isEmail()
-        req.checkBody('password' , ' پر کردن فیلد پسورد ضروری است  ').notEmpty()
-        req.checkBody('password' , 'پسورد شما باید حداقل 8 کاراکتر باشد ').isLength({ min : 8})
+    validationData(req) {
+        req.checkBody('name' , 'فیلد نام نمیتواند خالی بماند').notEmpty();
+        req.checkBody('name' , 'فیلد نام نمیتواند کمتر از 5 کاراکتر باشد').isLength({ min : 5});
+        req.checkBody('email' , 'فیلد ایمیل نمیتواند خالی بماند').notEmpty();
+        req.checkBody('email' , 'فیلد ایمیل معتبر نیست').isEmail();
+        req.checkBody('password' , 'فیلد پسورد نمیتواند خالی بماند').notEmpty();
+        req.checkBody('password' , 'فیلد پسورد نمیتواند کمتر از 8 کاراکتر باشد').isLength({ min : 8});
 
         return req.getValidationResult()
             .then(result => {
                 const errors = result.array();
-                 //res.json(errors);
                 const messages = [];
                 errors.forEach(err => messages.push(err.msg));
 
-                if (messages.length == 0 ) {
+                if(errors.length == 0) 
                     return true;
-                }
+                
+                req.flash('errors' , messages)
                 return false;
             })
-            .catch(err => console.log(err))
-
-
+            .catch(err => console.log(err));
     }
 
 }
