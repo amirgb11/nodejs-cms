@@ -26,7 +26,7 @@ class Application {
 
     setupExpress() {
         const server = http.createServer(app);
-        server.listen(3000 , () => console.log('App Run on Port 3000'));
+        server.listen(3000 , () => console.log('App Run on http://localhost:3000'));
     } 
 
     setMongoConnection() {
@@ -36,7 +36,10 @@ class Application {
     }
 
 
-    setConfig() { 
+    setConfig() {
+        
+        require('app/passport/passport-local');
+
         app.use(express.static('public')); // 1. set public path 
         app.set('view engine' , 'ejs'); // 2. set template engine  
         app.set('views' , path.resolve('./resource/views')); // 3. set views directories
@@ -54,6 +57,8 @@ class Application {
         app.use(cookieParser('mysecretkey'));
         app.use(flash()); // messages for example req.flash();
 
+        app.use(passport.initialize());  // passport config
+        app.use(passport.session());
     } // end of setConfig
 
     setRouters(){

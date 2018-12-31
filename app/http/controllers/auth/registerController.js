@@ -1,5 +1,5 @@
 const controller = require('app/http/controllers/controller');
-
+const passport = require('passport');
 
 class registerController extends controller {
     
@@ -9,11 +9,11 @@ class registerController extends controller {
     }
 
     registerProccess(req ,res , next) {
-        //res.json(req.body);         // check for sended req information to server 
+        //console.log(req.body);         // check for sended req information to server 
         this.recaptchaValidation(req , res)
             .then(result => this.validationData(req))
             .then(result => {
-                if(result)  res.json('register proccess');
+                if(result)  this.register(req , res ,next);
                 else  res.redirect('/register');
             });
 
@@ -54,6 +54,14 @@ class registerController extends controller {
                 return false;
             })
             .catch(err => console.log(err));
+    }
+
+    register(req , res , next){
+        passport.authenticate('local.register' , {
+            successRedirect : '/' , 
+            failureRedirect : '/register' , 
+            failureFlash : true
+        })(req , res , next);
     }
 
 }
