@@ -38,3 +38,22 @@ passport.use('local.register' , new localStrategy({
         })
     })
 }))
+
+
+passport.use('local.login' , new localStrategy({
+    usernameField : 'email', 
+    passwordField : 'password',
+    passReqToCallback : true
+} , (req , email , password , done) => {
+    console.log(email , password);
+    User.findOne({
+        'email' : email
+    } , ( err , user) => {
+        if(err) return done(err);
+        if(!user){
+            return done( null , false , req.flash('اطلاعات شما مطابقت ندارد .'));
+        }
+
+        done(null , user);
+    })
+}))

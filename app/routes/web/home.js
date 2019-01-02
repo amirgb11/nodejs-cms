@@ -12,6 +12,7 @@ router.get('/' , homeController.index );
 router.get('/register' , registerController.showRegisterationForm);
 router.get('/login' , loginController.showLoginForm);
 router.post('/register' , registerController.registerProccess);
+router.post('/login' , loginController.loginProccess);
 
 
 module.exports = router ; 

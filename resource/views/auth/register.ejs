@@ -7,27 +7,9 @@
                     <div class="card-header"><h5> عضویت در سایت </h5></div>
                     <div class="card-body">
                         <form class="form-horizontal" role="form" method="POST" action="/register" novalidate>
-                        
 
-                            <!-- handel flash messages what rendered from registercontroler.showRegistrationForm -->
-                        
-                <% if(messages.length > 0 ) { %>
-                
-
-                            <div class="alert alert-dismissible alert-danger">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span>×</span>
-                                </button>
                             
-
-                            <% messages.forEach(error => { %>
-                            
-                                <%= error %>
-
-                            <% }) %>
-                        </div>
-
-                <% } %>
+                 <%- include('./../layouts/error-messages') -%>
 
                             <div class="form-group">
                                 <label for="name" class="control-label">نام کامل</label>
