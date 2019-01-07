@@ -11,6 +11,8 @@ const MongoStore = require('connect-mongo')(session); // for passing session to 
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
+const Helepers = require('./helpers');
+const rememberLogin = require('app/http/middleware/rememberLogin');
 
 
 
@@ -60,6 +62,24 @@ class Application {
 
         app.use(passport.initialize());  // passport config
         app.use(passport.session());
+
+        app.use(rememberLogin.handle)
+        app.use((req , res , next) => {
+            // app.locals = {
+            //     auth : {
+            //         user : req.user , 
+            //         check : req.isAuthenticated()
+            //     }
+                
+            // }
+            app.locals = new Helepers(req , res).getObjects();
+            
+            next();
+        });                          // middllware for
+
+
+
+
     } // end of setConfig
 
     setRouters(){
