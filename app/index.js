@@ -33,7 +33,7 @@ class Application {
 
     setMongoConnection() {
         mongoose.Promise = global.Promise  // setting global NodeJs promise with MongoDb promise
-        mongoose.connect('mongodb://localhost/nodejs-cms'); // connect to nodejs-cms db 
+        mongoose.connect(config.database.url); // connect to nodejs-cms db 
 
     }
 
@@ -42,22 +42,17 @@ class Application {
         
         require('app/passport/passport-local');
 
-        app.use(express.static('public')); // 1. set public path 
-        app.set('view engine' , 'ejs'); // 2. set template engine  
-        app.set('views' , path.resolve('./resource/views')); // 3. set views directories
+        app.use(express.static(config.layout.public_dir)); // 1. set public path 
+        app.set('view engine' , config.layout.view_engine); // 2. set template engine  
+        app.set('views' , config.layout.view_dir); // 3. set views directories
+
         app.use(bodyParser.json()); // 4. config middleware of body-parser 
         app.use(bodyParser.urlencoded({ extended : true})); // 4. config middleware of body-parsers
 
         app.use(validator())
-        app.use(session({
-            secret : 'mysecretkey' , 
-            resave : true , 
-            saveUninitialized : true ,
-            cookie : { expires : new Date(Date.now() + 1000 * 60 * 60)} ,// 1 hour
-            store : new MongoStore({ mongooseConnection : mongoose.connection }) // session stores in mongodb 
-        }))
+        app.use(session({...config.sessions}))
 
-        app.use(cookieParser('mysecretkey'));
+        app.use(cookieParser(config.cookie_secretkey));
         app.use(flash()); // messages for example req.flash();
 
         app.use(passport.initialize());  // passport config
