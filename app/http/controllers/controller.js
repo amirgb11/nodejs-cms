@@ -9,9 +9,11 @@ class controller {
     }
 
     recaptchaConfig(){
-        this.recaptcha = new Recaptcha('6Ld32oQUAAAAAI_1Bg0dXvcC86Oa7Lgna2Zqx1EV', '6Ld32oQUAAAAACwSRL6LYM_9Su9NM7oJIGLlOWFn' , {
-            hl : 'fa'
-        })
+        this.recaptcha = new Recaptcha(
+            config.service.recaptcha.clinet_key ,
+            config.service.recaptcha.secret_key ,
+            {...config.service.recaptcha.options}
+            );
     }
 
     recaptchaValidation( req , res){
