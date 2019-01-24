@@ -13,5 +13,5 @@ module.exports = {
     layout , 
     sessions ,
     service , 
-    cookie_sercretkey : process.env.COOKIE_SECRETKEY
+    cookie_secretkey : process.env.COOKIE_SECRETKEY
 }

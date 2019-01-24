@@ -1,6 +1,6 @@
 module.exports = {
     recaptcha : {
-        clinet_key : process.env.RECAPTCHA_CLIENTKEY ,
+        site_key : process.env.RECAPTCHA_SITEKEY ,
         secret_key : process.env.RECAPTCHA_SECRETKEY ,
         options : { hl : 'fa' }
     }
