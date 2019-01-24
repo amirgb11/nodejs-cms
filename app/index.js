@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-const path = require('path');
+//const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session); // for passing session to mongodb
+//const MongoStore = require('connect-mongo')(session); // for passing session to mongodb
 //const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
