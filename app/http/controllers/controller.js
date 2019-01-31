@@ -22,7 +22,7 @@ class controller {
             this.recaptcha.verify(req , ( err , data) => {
                 if (err) {
                      req.flash('errors' , 'لطفا ریکپچا را پر کنید . ' );
-                     res.redirect(req.url);
+                     res.redirect(req.originalUrl);
                 } else resolve(true);
             })
         })
