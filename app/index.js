@@ -41,6 +41,7 @@ class Application {
     setConfig() {
         
         require('app/passport/passport-local');
+        require('app/passport/passport-google');
 
         app.use(express.static(config.layout.public_dir)); // 1. set public path 
         app.set('view engine' , config.layout.view_engine); // 2. set template engine  
