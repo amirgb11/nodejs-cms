@@ -5,7 +5,7 @@ class registerController extends controller {
     
     showRegisterationForm(req , res) {
         
-        res.render('auth/register' , { messages : req.flash('errors') , recaptcha : this.recaptcha.render() });
+        res.render('home/auth/register' , { messages : req.flash('errors') , recaptcha : this.recaptcha.render() , title : "صفحه ی عضویت"  });
     }
 
     registerProccess(req ,res , next) {

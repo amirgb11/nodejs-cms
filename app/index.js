@@ -46,6 +46,15 @@ class Application {
         app.set('view engine' , config.layout.view_engine); // 2. set template engine  
         app.set('views' , config.layout.view_dir); // 3. set views directories
 
+    // express-ejs-layout config - master page
+        app.use(config.layout.ejs.expressLayouts);
+        app.set("layout extractScripts" , config.layout.ejs.extractScripts);
+        app.set("layout extractStyles" , config.layout.ejs.extractStyles);
+        app.set("layout" , config.layout.ejs.master_dir);
+
+
+
+
         app.use(bodyParser.json()); // 4. config middleware of body-parser 
         app.use(bodyParser.urlencoded({ extended : true})); // 4. config middleware of body-parsers
 
