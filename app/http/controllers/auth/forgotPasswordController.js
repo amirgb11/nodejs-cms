@@ -9,41 +9,21 @@ class forgotPasswordController extends controller {
     }
 
 
-    loginProccess(req , res , next) {
+    async sendPasswordResetLink(req , res , next) {
 
-        this.recaptchaValidation(req , res)
-            .then(result => this.validationData(req))
-            .then(result => {
-                if(result) this.login(req , res , next);
-                else  res.redirect('/auth/login');
-            })
-            .catch(err => console.log(err));
+       await this.recaptchaValidation(req , res)
+       let result = await this.validationData(req);
 
+       if (result) {
+           return this.sendResetLink(req , res)
+       }
+       return  res.redirect('/auth/password/reset');
     }
 
-    login(req , res , next ){
-        passport.authenticate('local.login' , (err , user) => {
-            if(!user) return res.redirect('/auth/login');
-
-            req.logIn(user , err => {          // logIn is a passport function 
-                if(req.body.remember) {
-                    
-                    user.setRememberToken(res);
-                }
-
-                return  res.redirect('/');
-            })
-        }
-        //  {
-        //     successRedirect : '/' , 
-        //     failureRedirect : '/login' , 
-        //     failureFlash : true 
-        // }
-
-
-        )(req , res , next);
-    }
-
+    sendResetLink(req , res , next ){
+         res.json('reset');
+}
+    
 }
 
 module.exports = new forgotPasswordController();

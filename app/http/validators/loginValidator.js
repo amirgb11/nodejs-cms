@@ -1,7 +1,7 @@
 const validator = require('./validator');
 const { check } = require('express-validator/check');
 
-class registerValidator extends validator {
+class loginValidator extends validator {
     
     handle() {
         return [
@@ -16,4 +16,4 @@ class registerValidator extends validator {
     }
 }
 
-module.exports = new registerValidator();
+module.exports = new loginValidator();

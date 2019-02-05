@@ -13,6 +13,7 @@ const forgotPasswordController = require('app/http/controllers/auth/forgotPasswo
 // validators
 const registerValidator = require('app/http/validators/registerValidator');
 const loginValidator = require('app/http/validators/loginValidator');
+const forgotPasswordValidator = require('app/http/validators/forgotPasswordValidator');
 
 router.get('/register' , registerController.showRegisterationForm);
 router.get('/login'  ,loginController.showLoginForm);
@@ -22,8 +23,8 @@ router.post('/login' , loginValidator.handle() , loginController.loginProccess);
 
 
 router.get('/password/reset' , forgotPasswordController.showForgotPassword);
-router.post('/password/email'  ,loginController.showLoginForm);
-
+router.post('/password/email' , forgotPasswordValidator.handle() , forgotPasswordController.sendPasswordResetLink);
+ 
 
 
 router.get('/google', passport.authenticate('google' , { scope : ['profile' , 'email'] } ));
