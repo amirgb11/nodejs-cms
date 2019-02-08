@@ -7,6 +7,3 @@ const passwordReset = mongoose.Schema({
     token : { type : String , require : true} ,
     use : { type : Boolean , default : false }
 } , { timestamps : { updatedAt : false } });
-
-
-module.exports = mongoose.model('passwordReset' , passwordReset);
