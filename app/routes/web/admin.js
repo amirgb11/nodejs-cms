@@ -6,6 +6,7 @@ const router = express.Router();
 // } )
 
 const adminController = require('app/http/controllers/admin/adminController');
+const courseController = require('app/http/controllers/admin/courseController');
 
 router.use((req , res , next) => {
 
@@ -14,6 +15,7 @@ router.use((req , res , next) => {
 })
 
 router.get('/' , adminController.index )
-router.get('/course' , adminController.course)
+router.get('/courses' , courseController.index)
+router.get('/courses/create' , courseController.create)
 
 module.exports = router ; 

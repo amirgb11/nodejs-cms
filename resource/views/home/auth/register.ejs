@@ -9,8 +9,8 @@
                         <form class="form-horizontal" role="form" method="POST" action="/auth/register" novalidate>
 
                             
-                 <%- include('./../layouts/error-messages') -%>
 
+                            <%- include(viewPath('layouts/error-messages')) -%>
                             <div class="form-group">
                                 <label for="name" class="control-label">نام کامل</label>
                                 <input id="name" type="text" class="form-control"   name="name" value="" required autofocus="">
