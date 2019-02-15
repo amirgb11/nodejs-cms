@@ -9,7 +9,6 @@ const passwordReset = mongoose.Schema({
 } , { timestamps : { updatedAt : false } });
 
 
-<<<<<<< HEAD
 module.exports = mongoose.model('passwordReset' , passwordReset);
 
 
@@ -36,9 +35,3 @@ module.exports = mongoose.model('passwordReset' , passwordReset);
 // //         next();
 // //     })
 // // })
-
-
-// module.exports = mongoose.model('passwordReset' , passwordReset );
-=======
-module.exports = mongoose.model('passwordReset' , passwordReset);
->>>>>>> m4

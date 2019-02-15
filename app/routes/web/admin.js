@@ -5,7 +5,13 @@ const router = express.Router();
 //     res.json('Admin Router')
 // } )
 
-const adminController = require('app/http/controllers/admin/adminController')
+const adminController = require('app/http/controllers/admin/adminController');
+
+router.use((req , res , next) => {
+
+    res.locals.layout = "admin/master"
+    next();
+})
 
 router.get('/' , adminController.index )
 router.get('/course' , adminController.course)
