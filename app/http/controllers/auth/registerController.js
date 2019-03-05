@@ -4,32 +4,25 @@ const passport = require('passport');
 class registerController extends controller {
     
     showRegisterationForm(req , res) {
+        //let formData = req.flash('formData');
         
-        res.render('home/auth/register' , { messages : req.flash('errors') , recaptcha : this.recaptcha.render() , title : "صفحه ی عضویت"  });
+        res.render('home/auth/register' , { 
+            // messages : req.flash('errors') ,     commented because set this in globalVariables 
+            recaptcha : this.recaptcha.render() , 
+            title : "صفحه ی عضویت" ,
+             });
     }
 
-    registerProccess(req ,res , next) {
+    async registerProccess(req ,res , next) {
         //console.log(req.body);         // check for sended req information to server 
-        this.recaptchaValidation(req , res)
-            .then(result => this.validationData(req))
-            .then(result => {
-                if(result)  this.register(req , res ,next);
-                else  res.redirect('/auth/register');
+        await this.recaptchaValidation(req , res)
+        let result = await this.validationData(req)
+            if (result => {
+                return this.register(req , res ,next);
             });
 
-        // this.recaptcha.verify(req , (err , data ) => {
-        //     if(err) {
-        //         console.log(err);
-        //          res.json('error');
-        //     } else {        
-        //         this.validationData(req)
-        //         .then(result => {
-        //             if(result) res.json('register proccess')
-        //             else res.redirect('/register');
-        //         });
-        //     }
-        // })
-        
+        req.flash('formData' , req.body);
+        return res.redirect('/auth/register');
     }
 
 

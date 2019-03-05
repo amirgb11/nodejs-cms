@@ -5,19 +5,24 @@ const passport = require('passport');
 class loginController extends controller {
     showLoginForm(req , res){
 
-        res.render('home/auth/login' , { messages : req.flash('errors'), recaptcha : this.recaptcha.render() , title : 'صفحه ی ورود' } );
+        res.render('home/auth/login' , { 
+            // messages : req.flash('errors') ,     commented because set this in globalVariables 
+            recaptcha : this.recaptcha.render() , 
+            title : 'صفحه ی ورود' } );
     }
 
 
-    loginProccess(req , res , next) {
+    async loginProccess(req , res , next) {
 
-        this.recaptchaValidation(req , res)
-            .then(result => this.validationData(req))
-            .then(result => {
-                if(result) this.login(req , res , next);
-                else  res.redirect('/auth/login');
+        await this.recaptchaValidation(req , res)
+        let result = await this.validationData(req)
+            if(result => {
+              return this.login(req , res , next);
             })
-            .catch(err => console.log(err));
+
+            
+        req.flash('formData' , req.body);
+        return res.redirect('/auth/login');
 
     }
 

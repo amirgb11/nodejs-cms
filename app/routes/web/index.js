@@ -4,8 +4,9 @@ const router = express.Router();
 // middleware
 const redirectIfAuthenticated = require('app/http/middleware/redirectIfAuthenticated');
 const redirectIfNotAdmin = require('app/http/middleware/redirectIfNotAdmin');
+const globalVariables = require('app/http/middleware/globalVariables');
 
-
+router.use(globalVariables.handle);
 // Admin Router 
 const adminRouter = require('app/routes/web/admin');
 router.use('/admin' , redirectIfNotAdmin.handle , adminRouter);

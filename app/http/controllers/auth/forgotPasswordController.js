@@ -8,7 +8,10 @@ class forgotPasswordController extends controller {
     
     showForgotPassword(req , res) {
         const title = 'فراموشی رمز عبور';
-        res.render('home/auth/passwords/email' , { messages : req.flash('errors') ,recaptcha : this.recaptcha.render() , title });
+        res.render('home/auth/passwords/email' , { 
+            // messages : req.flash('errors') ,     commented because set this in globalVariables
+            recaptcha : this.recaptcha.render() , 
+            title });
     }
 
     async sendPasswordResetLink(req  ,res , next) {
@@ -17,7 +20,7 @@ class forgotPasswordController extends controller {
         if(result) {
             return this.sendResetLink(req, res)
         } 
-            
+        req.flash('formData' , req.body);
         return res.redirect('/auth/password/reset');
     }
 
